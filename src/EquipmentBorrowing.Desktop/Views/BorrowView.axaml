@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="clr-namespace:EquipmentBorrowing.Desktop.Views"
+             x:Class="EquipmentBorrowing.Desktop.Views.BorrowView">
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="12">
+    <TextBlock Text="Issue equipment to a student" FontSize="18" FontWeight="SemiBold" />
+    <views:StatusBarView Grid.Row="1" Margin="0,6,0,6" />
+    <Grid Grid.Row="2" ColumnDefinitions="*,12,*">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,6">
+          <TextBlock Text="1. Select a student" FontWeight="SemiBold" />
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <TextBox Width="220" Watermark="Search students" Text="{Binding StudentSearch}">
+              <TextBox.KeyBindings><KeyBinding Gesture="Enter" Command="{Binding SearchCommand}" /></TextBox.KeyBindings>
+            </TextBox>
+            <Button Content="Search" Command="{Binding SearchCommand}" />
+          </StackPanel>
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Number" Binding="{Binding StudentNumber}" />
+            <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="*" />
+            <DataGridTextColumn Header="Eligibility" Binding="{Binding EligibilityText}" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </DockPanel>
+      <DockPanel Grid.Column="2">
+        <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,6">
+          <TextBlock Text="2. Tick the available equipment" FontWeight="SemiBold" />
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <TextBox Width="220" Watermark="Search equipment" Text="{Binding EquipmentSearch}">
+              <TextBox.KeyBindings><KeyBinding Gesture="Enter" Command="{Binding SearchCommand}" /></TextBox.KeyBindings>
+            </TextBox>
+            <Button Content="Search" Command="{Binding SearchCommand}" />
+          </StackPanel>
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding Equipment}" AutoGenerateColumns="False" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTemplateColumn Header="Pick">
+              <DataTemplate>
+                <CheckBox IsChecked="{Binding IsSelected}" HorizontalAlignment="Center" />
+              </DataTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="Identifier" Binding="{Binding Identifier}" />
+            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </DockPanel>
+    </Grid>
+    <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+      <TextBlock Text="3. Expected return date:" VerticalAlignment="Center" FontWeight="SemiBold" />
+      <DatePicker SelectedDate="{Binding ExpectedReturn}" />
+      <Button Content="Borrow one item" Command="{Binding BorrowOneCommand}" />
+      <Button Content="Check out ticked items" Command="{Binding CheckoutMultipleCommand}" />
+      <CheckBox Content="Demo: simulate a failure after the first write" IsChecked="{Binding SimulateFault}" IsVisible="{Binding DemoMode}" />
+    </StackPanel>
+  </Grid>
+</UserControl>

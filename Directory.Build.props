@@ -1,0 +1,9 @@
+<Project>
+  <!-- Keep the TargetFramework you used in Lab 3 if it differs (net9.0 or net10.0 both work with the package versions below). -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+</Project>

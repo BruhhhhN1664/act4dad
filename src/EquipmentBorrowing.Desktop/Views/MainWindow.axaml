@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="clr-namespace:EquipmentBorrowing.Desktop.Views"
+        x:Class="EquipmentBorrowing.Desktop.Views.MainWindow"
+        Title="Campus Equipment Borrowing" Width="1150" Height="740" MinWidth="900" MinHeight="560">
+  <DockPanel>
+    <Border DockPanel.Dock="Top" Padding="12" Background="#FFF4CE" IsVisible="{Binding !IsReady}">
+      <StackPanel Spacing="6">
+        <TextBlock Text="{Binding StartupMessage}" TextWrapping="Wrap" Foreground="#5A4300" />
+        <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" />
+        <Button Content="Retry" Command="{Binding RetryCommand}" IsVisible="{Binding HasStartupError}" />
+      </StackPanel>
+    </Border>
+    <TabControl SelectedIndex="{Binding SelectedTabIndex}" IsEnabled="{Binding IsReady}">
+      <TabItem Header="Catalog"><views:CatalogView DataContext="{Binding Catalog}" /></TabItem>
+      <TabItem Header="Issue equipment"><views:BorrowView DataContext="{Binding Borrow}" /></TabItem>
+      <TabItem Header="Active / Return"><views:ActiveBorrowingsView DataContext="{Binding Active}" /></TabItem>
+      <TabItem Header="Students"><views:StudentsView DataContext="{Binding Students}" /></TabItem>
+      <TabItem Header="Equipment"><views:EquipmentView DataContext="{Binding Equipment}" /></TabItem>
+      <TabItem Header="History"><views:HistoryView DataContext="{Binding History}" /></TabItem>
+      <TabItem Header="Search borrowings"><views:SearchView DataContext="{Binding Search}" /></TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>

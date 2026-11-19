@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="clr-namespace:EquipmentBorrowing.Desktop.Views"
+             x:Class="EquipmentBorrowing.Desktop.Views.SearchView">
+  <DockPanel Margin="12">
+    <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,8">
+      <TextBlock Text="Search borrowing records" FontSize="18" FontWeight="SemiBold" />
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBox Width="260" Watermark="Student name, student number or item name" Text="{Binding SearchText}">
+          <TextBox.KeyBindings><KeyBinding Gesture="Enter" Command="{Binding SearchCommand}" /></TextBox.KeyBindings>
+        </TextBox>
+        <TextBlock Text="Status:" VerticalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding StatusOptions}" SelectedItem="{Binding SelectedStatus}" Width="110" />
+        <TextBlock Text="Sort by:" VerticalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}" Width="170" />
+        <CheckBox Content="Newest / latest first" IsChecked="{Binding Descending}" />
+        <Button Content="Search" Command="{Binding SearchCommand}" />
+        <Button Content="Clear" Command="{Binding ClearCommand}" />
+      </StackPanel>
+      <views:StatusBarView />
+    </StackPanel>
+    <DataGrid ItemsSource="{Binding Items}" AutoGenerateColumns="False" IsReadOnly="True">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Student no." Binding="{Binding StudentNumber}" />
+        <DataGridTextColumn Header="Student" Binding="{Binding StudentName}" Width="*" />
+        <DataGridTextColumn Header="Item ID" Binding="{Binding EquipmentIdentifier}" />
+        <DataGridTextColumn Header="Item" Binding="{Binding EquipmentName}" Width="*" />
+        <DataGridTextColumn Header="Borrowed" Binding="{Binding BorrowedText}" />
+        <DataGridTextColumn Header="Due" Binding="{Binding ExpectedText}" />
+        <DataGridTextColumn Header="Returned" Binding="{Binding ReturnedText}" />
+        <DataGridTextColumn Header="Status" Binding="{Binding StatusText}" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </DockPanel>
+</UserControl>
